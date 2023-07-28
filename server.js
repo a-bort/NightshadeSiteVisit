@@ -1,6 +1,11 @@
-"use strict";
+//.ENV access
 require('dotenv').config();
+//SERVER FRAMEWORK
 const fastify = require('fastify')({ logger: true });
+//SERVE STATIC FILES
+const fs = require('@fastify/static');
+const path = require("path");
+//DB CONNECTION
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const mongoUri = process.env.MONGO_URI;
 const client = new MongoClient(mongoUri, {
@@ -9,9 +14,6 @@ const client = new MongoClient(mongoUri, {
         strict: true,
         deprecationErrors: true,
     }
-});
-fastify.get('/', async ( /*request, reply*/) => {
-    return { hello: 'world' };
 });
 async function runDb() {
     try {
@@ -27,9 +29,24 @@ async function runDb() {
     }
 }
 runDb().catch(console.dir);
-/**
- * Run the webserver!
- */
+//ROUTES
+fastify.register(fs, {
+    root: path.join(__dirname, 'public'),
+    prefix: '/public/',
+});
+fastify.get('/', async ( /*request, reply*/) => {
+    return { hello: 'world' };
+});
+fastify.get('/index', (request, reply) => {
+    reply.sendFile('index.html');
+});
+fastify.post('/sitevisit/create', (request, reply) => {
+    return { post: 'success' };
+});
+fastify.get('/sitevisit/all', (request, reply) => {
+    return { siteVisits: [{ object: 1 }, { object: 2 }] };
+});
+//RUN SERVER
 const startWebServer = async () => {
     try {
         await fastify.listen({ port: process.env.port });
