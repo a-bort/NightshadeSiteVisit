@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState } = React;
+    
+      function MyApp() {
+        //load list of client sites
+        const [site, setSite] = useState("");
+        const [visitDate, setVisitDate] = useState(new Date().toString());
+        
+        async function handleSiteChange(e){
+          setSite(e.target.value);
+        }
+        
+        async function handleVisitDateChange(e){
+          console.log(e);
+          //setSite(e.target.value);
+        }
+        
+        return (
+          <form>
+            <div>
+              <label>Client Site&nbsp;<input name="site" type="text" onChange={handleSiteChange}></input></label>
+            </div>
+            
+          </form>
+        );
+        
+      }
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this page for starting a new React project with JSX:
+      https://react.dev/learn/start-a-new-react-project
+
+      Read this page for adding React with JSX to an existing project:
+      https://react.dev/learn/add-react-to-an-existing-project
+    -->
+  </body>
+</html>

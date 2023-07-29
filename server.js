@@ -40,6 +40,9 @@ fastify.get('/', async ( /*request, reply*/) => {
 fastify.get('/index', (request, reply) => {
     reply.sendFile('index.html');
 });
+fastify.get('/sitevisit', (request, reply) => {
+    reply.sendFile('record-visit.html');
+});
 fastify.post('/sitevisit/create', (request, reply) => {
     return { post: 'success' };
 });
