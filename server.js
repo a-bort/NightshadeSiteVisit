@@ -34,6 +34,9 @@ fastify.register(fs, {
     root: path.join(__dirname, 'public'),
     prefix: '/public/',
 });
+fastify.get('/jquery', (request, reply) => {
+    reply.sendFile('/scripts/jquery-3.7.0.min.js');
+});
 fastify.get('/', async ( /*request, reply*/) => {
     return { hello: 'world' };
 });

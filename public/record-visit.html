@@ -1,14 +1,25 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World</title>
-    
+    <title>Record a Site Visit</title>
+    <script type="text/javascript" src="/public/scripts/jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="/public/scripts/record-visit.js"></script>
   </head>
   <body>
     <div id="root">
       <form id="visit-form">
-        <label for="site">Client/Site:</label><input type="text" id="site" name="site"/>
+        <label for="site">Client/Site:</label><input type="text" id="site" name="site"/><br/>
+        <label for="visitDate">Date:</label><input type="date" id="visitDate" name="visitDate"/><br/>
+        <label for="visitDuration">Duration (mins):</label><input type="number" id="visitDuration" name="visitDuration"/><br/>
+        <label for="weeding">Weeding?:</label><input type="checkbox" id="weeding" name="weeding"/><br/>
+        <label for="fertilizer">Fertilizer?:</label><input type="checkbox" id="fertilizer" name="fertilizer"/><br/>
+        <label for="plants">New Plants Installed:</label><br/><textarea rows="5" id="plants" name="plants"></textarea><br/>
+        <label for="attrition">Attrition Identified:</label><br/><textarea rows="5" id="attrition" name="attrition"></textarea><br/>
+        <label for="followUp">Client Follow Ups:</label><br/><textarea rows="5" id="followUp" name="followUp"></textarea><br/>
+        <label for="businessNotes">Biz Notes:</label><br/><textarea rows="5" id="businessNotes" name="businessNotes"></textarea><br/>
+        <input type="submit" value="Submit">
       </form>
     </div>
   </body>
