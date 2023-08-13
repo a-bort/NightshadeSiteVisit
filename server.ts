@@ -20,9 +20,8 @@ const client = new MongoClient(mongoUri, {
   }
 });
 
-async function runDb() {
+async function testDbConnection() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
@@ -33,7 +32,41 @@ async function runDb() {
   }
 }
 
-runDb().catch(console.dir);
+async function insertSiteVisit(request) {
+  try {
+    await client.connect();
+    
+    await client.db("nightshadeAdmin").collection("siteVisits").insertOne(request.body);
+    console.log("Inserted one row");
+  } catch(e){
+    console.log("Error Inserting");
+    console.log(e);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
+testDbConnection().catch(console.dir);
+
+//JSON SCHEMA
+const siteVisitRequest = {
+    schema: {
+      body: {
+        type: 'object',
+        properties: {
+          site: {type: 'string'},
+          visitDate: {type: 'string'},
+          visitDuration: {type: 'number'},
+          weeding: {type: 'boolean'},
+          plants: {type: 'string'},
+          attrition: {type: 'string'},
+          followUp: {type: 'string'},
+          businessNotes: {type: 'string'}
+        }
+      }
+    }
+};
 
 //ROUTES
 fastify.register(fs, {
@@ -53,7 +86,9 @@ fastify.get('/sitevisit', (request, reply) => {
     reply.sendFile('record-visit.html');
 });
 
-fastify.post('/sitevisit/create', (request, reply) => {
+fastify.post('/sitevisit/create', siteVisitRequest, (request, reply) => {
+  console.log(request.body);
+  insertSiteVisit(request);
   return { post: 'success' }
 });
 

@@ -23,6 +23,19 @@ $(document).ready(function() {
       let formDataObject = Object.fromEntries(formFields.entries());
       // Format the plain form data as JSON
       let formDataJsonString = JSON.stringify(formDataObject);
+      $.ajax("/sitevisit/create", {
+        data: formDataJsonString,
+        contentType : 'application/json',
+        type: 'POST',
+        success: function(data){
+          console.log("success");
+          console.log(data);
+        }
+      }).fail(function(data){
+        console.log("failure");
+        console.log(data);
+      });
+      
       console.log(formDataJsonString);
     }
     catch (error){
