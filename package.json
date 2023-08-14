@@ -4,7 +4,8 @@
     "dotenv": "^16.3.1",
     "fastify": "^4.20.0",
     "mongodb": "^5.7.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "tsc": "^2.0.4"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
