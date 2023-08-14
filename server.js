@@ -30,7 +30,7 @@ async function testDbConnection() {
 async function insertSiteVisit(request) {
     try {
         await client.connect();
-        await client.db("nightshadeAdmin").collection("siteVisits").insertOne(request.body);
+        await client.db(process.env.DB_NAME).collection(process.env.SITE_VISIT_COLLECTION).insertOne(request.body);
         console.log("Inserted one row");
     }
     catch (e) {
