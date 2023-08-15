@@ -10,6 +10,6 @@
   },
   "scripts": {
     "start": "node server.js",
-	"postinstall": "tsc -p tsconfig.json"
+	"local": "tsc -p tsconfig.json && npm run start"
   }
 }
